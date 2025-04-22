@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String      @id @default(uuid())
+  email             String      @unique
+  name              String
+  password          String
+  timezone          String      @default("UTC")
+  notificationOptIn Boolean     @default(false)
+  googleCalendarId  String?     @unique
+  googleAccessToken String?
+  googleRefreshToken String?
+  googleTokenExpiry DateTime?
+  watchList         WatchList[]
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+}
+
+model Show {
+  id         String     @id @default(uuid())
+  title      String
+  externalId String     @unique
+  createdAt  DateTime   @default(now())
+  episodes   Episode[]
+  watchList  WatchList[]
+}
+
+model Episode {
+  id          Int      @id @default(autoincrement())
+  showId      String
+  show        Show     @relation(fields: [showId], references: [id])
+  episodeNumber Int
+  title       String
+  airDate     DateTime
+  isSubbed    Boolean  @default(false)
+  isDubbed    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([showId, episodeNumber])
+}
+
+model WatchList {
+  id        String   @id @default(uuid())
+  userId    String
+  showId    String
+  status    String   // watching, dropped, completed
+  user      User     @relation(fields: [userId], references: [id])
+  show      Show     @relation(fields: [showId], references: [id])
+
+  @@unique([userId, showId])
+}
