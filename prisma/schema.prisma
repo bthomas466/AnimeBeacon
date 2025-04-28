@@ -31,12 +31,16 @@ model User {
 }
 
 model Show {
-  id         String     @id @default(uuid())
-  title      String
-  externalId String     @unique
-  createdAt  DateTime   @default(now())
-  episodes   Episode[]
-  watchList  WatchList[]
+  id          String     @id @default(uuid())
+  title       String
+  externalId  String     @unique
+  genres      String[]
+  synopsis    String?
+  imageUrl    String?
+  avgRating   Float?
+  createdAt   DateTime   @default(now())
+  episodes    Episode[]
+  watchList   WatchList[]
 }
 
 model Episode {
@@ -59,8 +63,11 @@ model WatchList {
   userId    String
   showId    String
   status    String   // watching, dropped, completed
+  rating    Int?     // 1-5 star rating
   user      User     @relation(fields: [userId], references: [id])
   show      Show     @relation(fields: [showId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([userId, showId])
 }

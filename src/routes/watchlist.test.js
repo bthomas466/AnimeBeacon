@@ -494,4 +494,71 @@ describe('Watchlist Routes', () => {
       expect(prisma.watchList.delete).not.toHaveBeenCalled();
     });
   });
+
+  describe('POST /watchlist/:showId/rate', () => {
+    const mockWatchListEntry = {
+      id: 'watchlist-1',
+      userId: 'user-123',
+      showId: 'show-1',
+      status: 'watching',
+      rating: null,
+      show: {
+        id: 'show-1',
+        title: 'Test Anime 1',
+        externalId: '101'
+      }
+    };
+
+    it('successfully rates a show', async () => {
+      prisma.watchList.findFirst.mockResolvedValue(mockWatchListEntry);
+      prisma.watchList.update.mockResolvedValue({
+        ...mockWatchListEntry,
+        rating: 5
+      });
+
+      const response = await request(app)
+        .post('/watchlist/show-1/rate')
+        .set('Authorization', 'Bearer valid-token')
+        .send({ rating: 5 });
+
+      expect(response.status).toBe(200);
+      expect(response.body.watchListEntry.rating).toBe(5);
+      expect(prisma.watchList.update).toHaveBeenCalledWith({
+        where: { id: 'watchlist-1' },
+        data: { rating: 5 },
+        include: { show: true }
+      });
+    });
+
+    it('rejects invalid rating values', async () => {
+      const response = await request(app)
+        .post('/watchlist/show-1/rate')
+        .set('Authorization', 'Bearer valid-token')
+        .send({ rating: 6 });
+
+      expect(response.status).toBe(400);
+      expect(response.body.error).toBe('Rating must be a number between 1 and 5');
+    });
+
+    it('returns 404 if show not in watchlist', async () => {
+      prisma.watchList.findFirst.mockResolvedValue(null);
+
+      const response = await request(app)
+        .post('/watchlist/show-1/rate')
+        .set('Authorization', 'Bearer valid-token')
+        .send({ rating: 5 });
+
+      expect(response.status).toBe(404);
+      expect(response.body.error).toBe('Show not found in watch list');
+    });
+
+    it('requires authentication', async () => {
+      const response = await request(app)
+        .post('/watchlist/show-1/rate')
+        .send({ rating: 5 });
+
+      expect(response.status).toBe(401);
+      expect(response.body.error).toBe('Not authenticated');
+    });
+  });
 }); 

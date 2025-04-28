@@ -141,6 +141,10 @@ exports.Prisma.ShowScalarFieldEnum = {
   id: 'id',
   title: 'title',
   externalId: 'externalId',
+  genres: 'genres',
+  synopsis: 'synopsis',
+  imageUrl: 'imageUrl',
+  avgRating: 'avgRating',
   createdAt: 'createdAt'
 };
 
@@ -160,7 +164,10 @@ exports.Prisma.WatchListScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   showId: 'showId',
-  status: 'status'
+  status: 'status',
+  rating: 'rating',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {

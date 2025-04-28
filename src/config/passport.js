@@ -2,22 +2,27 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const DiscordStrategy = require('passport-discord').Strategy;
 const AppleStrategy = require('passport-apple').Strategy;
-const prisma = require('../db');
+const { PrismaClient } = require('../generated/prisma');
+const prisma = new PrismaClient();
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
+// Development-only mock authentication
+if (process.env.NODE_ENV === 'development') {
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
 
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await prisma.user.findUnique({
-      where: { id },
-    });
-    done(null, user);
-  } catch (error) {
-    done(error, null);
-  }
-});
+  passport.deserializeUser(async (id, done) => {
+    try {
+      const user = await prisma.user.findUnique({ where: { id } });
+      done(null, user);
+    } catch (error) {
+      done(error);
+    }
+  });
+} else {
+  // Production OAuth configuration would go here
+  throw new Error('Production OAuth configuration not set up');
+}
 
 // Helper function to handle user creation/lookup
 async function handleAuthUser(profile, provider) {

@@ -6,6 +6,7 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const searchRoutes = require('./routes/search');
 const watchlistRoutes = require('./routes/watchlist');
+const recommendationsRoutes = require('./routes/recommendations');
 const cors = require('cors');
 const cron = require('node-cron');
 const { syncEpisodes } = require('./jobs/sync-airdates');
@@ -44,6 +45,7 @@ app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/search', searchRoutes);
 app.use('/watchlist', watchlistRoutes);
+app.use('/recommendations', recommendationsRoutes);
 app.use('/api/shows', showsRoutes);
 app.use('/api/calendar', calendarRoutes);
 

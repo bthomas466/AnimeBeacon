@@ -318,4 +318,55 @@ router.put('/:showId', isAuthenticated, async (req, res) => {
   }
 });
 
+/**
+ * Rate a show in the watch list
+ * @route POST /api/watchlist/:showId/rate
+ * @param {string} showId - Show ID
+ * @param {number} rating - Rating value (1-5)
+ */
+router.post('/:showId/rate', isAuthenticated, async (req, res) => {
+  try {
+    const { showId } = req.params;
+    const { rating } = req.body;
+    const userId = req.user.id;
+
+    // Validate rating
+    if (!rating || rating < 1 || rating > 5) {
+      return res.status(400).json({ 
+        error: 'Rating must be a number between 1 and 5' 
+      });
+    }
+
+    // Check if show exists in user's watch list
+    const existingEntry = await prisma.watchList.findFirst({
+      where: {
+        showId,
+        userId
+      }
+    });
+
+    if (!existingEntry) {
+      return res.status(404).json({ error: 'Show not found in watch list' });
+    }
+
+    // Update the rating
+    const updatedEntry = await prisma.watchList.update({
+      where: {
+        id: existingEntry.id
+      },
+      data: {
+        rating
+      },
+      include: {
+        show: true
+      }
+    });
+
+    res.json({ watchListEntry: updatedEntry });
+  } catch (error) {
+    console.error('Error rating show:', error);
+    res.status(500).json({ error: 'Failed to rate show' });
+  }
+});
+
 module.exports = router; 

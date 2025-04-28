@@ -2209,14 +2209,27 @@ export namespace Prisma {
 
   export type AggregateShow = {
     _count: ShowCountAggregateOutputType | null
+    _avg: ShowAvgAggregateOutputType | null
+    _sum: ShowSumAggregateOutputType | null
     _min: ShowMinAggregateOutputType | null
     _max: ShowMaxAggregateOutputType | null
+  }
+
+  export type ShowAvgAggregateOutputType = {
+    avgRating: number | null
+  }
+
+  export type ShowSumAggregateOutputType = {
+    avgRating: number | null
   }
 
   export type ShowMinAggregateOutputType = {
     id: string | null
     title: string | null
     externalId: string | null
+    synopsis: string | null
+    imageUrl: string | null
+    avgRating: number | null
     createdAt: Date | null
   }
 
@@ -2224,6 +2237,9 @@ export namespace Prisma {
     id: string | null
     title: string | null
     externalId: string | null
+    synopsis: string | null
+    imageUrl: string | null
+    avgRating: number | null
     createdAt: Date | null
   }
 
@@ -2231,15 +2247,30 @@ export namespace Prisma {
     id: number
     title: number
     externalId: number
+    genres: number
+    synopsis: number
+    imageUrl: number
+    avgRating: number
     createdAt: number
     _all: number
   }
 
 
+  export type ShowAvgAggregateInputType = {
+    avgRating?: true
+  }
+
+  export type ShowSumAggregateInputType = {
+    avgRating?: true
+  }
+
   export type ShowMinAggregateInputType = {
     id?: true
     title?: true
     externalId?: true
+    synopsis?: true
+    imageUrl?: true
+    avgRating?: true
     createdAt?: true
   }
 
@@ -2247,6 +2278,9 @@ export namespace Prisma {
     id?: true
     title?: true
     externalId?: true
+    synopsis?: true
+    imageUrl?: true
+    avgRating?: true
     createdAt?: true
   }
 
@@ -2254,6 +2288,10 @@ export namespace Prisma {
     id?: true
     title?: true
     externalId?: true
+    genres?: true
+    synopsis?: true
+    imageUrl?: true
+    avgRating?: true
     createdAt?: true
     _all?: true
   }
@@ -2296,6 +2334,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ShowAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ShowSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ShowMinAggregateInputType
@@ -2326,6 +2376,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ShowCountAggregateInputType | true
+    _avg?: ShowAvgAggregateInputType
+    _sum?: ShowSumAggregateInputType
     _min?: ShowMinAggregateInputType
     _max?: ShowMaxAggregateInputType
   }
@@ -2334,8 +2386,14 @@ export namespace Prisma {
     id: string
     title: string
     externalId: string
+    genres: string[]
+    synopsis: string | null
+    imageUrl: string | null
+    avgRating: number | null
     createdAt: Date
     _count: ShowCountAggregateOutputType | null
+    _avg: ShowAvgAggregateOutputType | null
+    _sum: ShowSumAggregateOutputType | null
     _min: ShowMinAggregateOutputType | null
     _max: ShowMaxAggregateOutputType | null
   }
@@ -2358,6 +2416,10 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     externalId?: boolean
+    genres?: boolean
+    synopsis?: boolean
+    imageUrl?: boolean
+    avgRating?: boolean
     createdAt?: boolean
     episodes?: boolean | Show$episodesArgs<ExtArgs>
     watchList?: boolean | Show$watchListArgs<ExtArgs>
@@ -2368,6 +2430,10 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     externalId?: boolean
+    genres?: boolean
+    synopsis?: boolean
+    imageUrl?: boolean
+    avgRating?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["show"]>
 
@@ -2375,6 +2441,10 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     externalId?: boolean
+    genres?: boolean
+    synopsis?: boolean
+    imageUrl?: boolean
+    avgRating?: boolean
     createdAt?: boolean
   }
 
@@ -2395,6 +2465,10 @@ export namespace Prisma {
       id: string
       title: string
       externalId: string
+      genres: string[]
+      synopsis: string | null
+      imageUrl: string | null
+      avgRating: number | null
       createdAt: Date
     }, ExtArgs["result"]["show"]>
     composites: {}
@@ -2794,6 +2868,10 @@ export namespace Prisma {
     readonly id: FieldRef<"Show", 'String'>
     readonly title: FieldRef<"Show", 'String'>
     readonly externalId: FieldRef<"Show", 'String'>
+    readonly genres: FieldRef<"Show", 'String[]'>
+    readonly synopsis: FieldRef<"Show", 'String'>
+    readonly imageUrl: FieldRef<"Show", 'String'>
+    readonly avgRating: FieldRef<"Show", 'Float'>
     readonly createdAt: FieldRef<"Show", 'DateTime'>
   }
     
@@ -4188,8 +4266,18 @@ export namespace Prisma {
 
   export type AggregateWatchList = {
     _count: WatchListCountAggregateOutputType | null
+    _avg: WatchListAvgAggregateOutputType | null
+    _sum: WatchListSumAggregateOutputType | null
     _min: WatchListMinAggregateOutputType | null
     _max: WatchListMaxAggregateOutputType | null
+  }
+
+  export type WatchListAvgAggregateOutputType = {
+    rating: number | null
+  }
+
+  export type WatchListSumAggregateOutputType = {
+    rating: number | null
   }
 
   export type WatchListMinAggregateOutputType = {
@@ -4197,6 +4285,9 @@ export namespace Prisma {
     userId: string | null
     showId: string | null
     status: string | null
+    rating: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type WatchListMaxAggregateOutputType = {
@@ -4204,6 +4295,9 @@ export namespace Prisma {
     userId: string | null
     showId: string | null
     status: string | null
+    rating: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
   }
 
   export type WatchListCountAggregateOutputType = {
@@ -4211,15 +4305,29 @@ export namespace Prisma {
     userId: number
     showId: number
     status: number
+    rating: number
+    createdAt: number
+    updatedAt: number
     _all: number
   }
 
+
+  export type WatchListAvgAggregateInputType = {
+    rating?: true
+  }
+
+  export type WatchListSumAggregateInputType = {
+    rating?: true
+  }
 
   export type WatchListMinAggregateInputType = {
     id?: true
     userId?: true
     showId?: true
     status?: true
+    rating?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type WatchListMaxAggregateInputType = {
@@ -4227,6 +4335,9 @@ export namespace Prisma {
     userId?: true
     showId?: true
     status?: true
+    rating?: true
+    createdAt?: true
+    updatedAt?: true
   }
 
   export type WatchListCountAggregateInputType = {
@@ -4234,6 +4345,9 @@ export namespace Prisma {
     userId?: true
     showId?: true
     status?: true
+    rating?: true
+    createdAt?: true
+    updatedAt?: true
     _all?: true
   }
 
@@ -4275,6 +4389,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: WatchListAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: WatchListSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: WatchListMinAggregateInputType
@@ -4305,6 +4431,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: WatchListCountAggregateInputType | true
+    _avg?: WatchListAvgAggregateInputType
+    _sum?: WatchListSumAggregateInputType
     _min?: WatchListMinAggregateInputType
     _max?: WatchListMaxAggregateInputType
   }
@@ -4314,7 +4442,12 @@ export namespace Prisma {
     userId: string
     showId: string
     status: string
+    rating: number | null
+    createdAt: Date
+    updatedAt: Date
     _count: WatchListCountAggregateOutputType | null
+    _avg: WatchListAvgAggregateOutputType | null
+    _sum: WatchListSumAggregateOutputType | null
     _min: WatchListMinAggregateOutputType | null
     _max: WatchListMaxAggregateOutputType | null
   }
@@ -4338,6 +4471,9 @@ export namespace Prisma {
     userId?: boolean
     showId?: boolean
     status?: boolean
+    rating?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     show?: boolean | ShowDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["watchList"]>
@@ -4347,6 +4483,9 @@ export namespace Prisma {
     userId?: boolean
     showId?: boolean
     status?: boolean
+    rating?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     show?: boolean | ShowDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["watchList"]>
@@ -4356,6 +4495,9 @@ export namespace Prisma {
     userId?: boolean
     showId?: boolean
     status?: boolean
+    rating?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
   }
 
   export type WatchListInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4378,6 +4520,9 @@ export namespace Prisma {
       userId: string
       showId: string
       status: string
+      rating: number | null
+      createdAt: Date
+      updatedAt: Date
     }, ExtArgs["result"]["watchList"]>
     composites: {}
   }
@@ -4777,6 +4922,9 @@ export namespace Prisma {
     readonly userId: FieldRef<"WatchList", 'String'>
     readonly showId: FieldRef<"WatchList", 'String'>
     readonly status: FieldRef<"WatchList", 'String'>
+    readonly rating: FieldRef<"WatchList", 'Int'>
+    readonly createdAt: FieldRef<"WatchList", 'DateTime'>
+    readonly updatedAt: FieldRef<"WatchList", 'DateTime'>
   }
     
 
@@ -5145,6 +5293,10 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     externalId: 'externalId',
+    genres: 'genres',
+    synopsis: 'synopsis',
+    imageUrl: 'imageUrl',
+    avgRating: 'avgRating',
     createdAt: 'createdAt'
   };
 
@@ -5170,7 +5322,10 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     showId: 'showId',
-    status: 'status'
+    status: 'status',
+    rating: 'rating',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
   };
 
   export type WatchListScalarFieldEnum = (typeof WatchListScalarFieldEnum)[keyof typeof WatchListScalarFieldEnum]
@@ -5241,20 +5396,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -5265,6 +5406,20 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
   /**
    * Deep Input Types
@@ -5368,6 +5523,10 @@ export namespace Prisma {
     id?: StringFilter<"Show"> | string
     title?: StringFilter<"Show"> | string
     externalId?: StringFilter<"Show"> | string
+    genres?: StringNullableListFilter<"Show">
+    synopsis?: StringNullableFilter<"Show"> | string | null
+    imageUrl?: StringNullableFilter<"Show"> | string | null
+    avgRating?: FloatNullableFilter<"Show"> | number | null
     createdAt?: DateTimeFilter<"Show"> | Date | string
     episodes?: EpisodeListRelationFilter
     watchList?: WatchListListRelationFilter
@@ -5377,6 +5536,10 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     externalId?: SortOrder
+    genres?: SortOrder
+    synopsis?: SortOrderInput | SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    avgRating?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     episodes?: EpisodeOrderByRelationAggregateInput
     watchList?: WatchListOrderByRelationAggregateInput
@@ -5389,6 +5552,10 @@ export namespace Prisma {
     OR?: ShowWhereInput[]
     NOT?: ShowWhereInput | ShowWhereInput[]
     title?: StringFilter<"Show"> | string
+    genres?: StringNullableListFilter<"Show">
+    synopsis?: StringNullableFilter<"Show"> | string | null
+    imageUrl?: StringNullableFilter<"Show"> | string | null
+    avgRating?: FloatNullableFilter<"Show"> | number | null
     createdAt?: DateTimeFilter<"Show"> | Date | string
     episodes?: EpisodeListRelationFilter
     watchList?: WatchListListRelationFilter
@@ -5398,10 +5565,16 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     externalId?: SortOrder
+    genres?: SortOrder
+    synopsis?: SortOrderInput | SortOrder
+    imageUrl?: SortOrderInput | SortOrder
+    avgRating?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: ShowCountOrderByAggregateInput
+    _avg?: ShowAvgOrderByAggregateInput
     _max?: ShowMaxOrderByAggregateInput
     _min?: ShowMinOrderByAggregateInput
+    _sum?: ShowSumOrderByAggregateInput
   }
 
   export type ShowScalarWhereWithAggregatesInput = {
@@ -5411,6 +5584,10 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Show"> | string
     title?: StringWithAggregatesFilter<"Show"> | string
     externalId?: StringWithAggregatesFilter<"Show"> | string
+    genres?: StringNullableListFilter<"Show">
+    synopsis?: StringNullableWithAggregatesFilter<"Show"> | string | null
+    imageUrl?: StringNullableWithAggregatesFilter<"Show"> | string | null
+    avgRating?: FloatNullableWithAggregatesFilter<"Show"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Show"> | Date | string
   }
 
@@ -5500,6 +5677,9 @@ export namespace Prisma {
     userId?: StringFilter<"WatchList"> | string
     showId?: StringFilter<"WatchList"> | string
     status?: StringFilter<"WatchList"> | string
+    rating?: IntNullableFilter<"WatchList"> | number | null
+    createdAt?: DateTimeFilter<"WatchList"> | Date | string
+    updatedAt?: DateTimeFilter<"WatchList"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     show?: XOR<ShowRelationFilter, ShowWhereInput>
   }
@@ -5509,6 +5689,9 @@ export namespace Prisma {
     userId?: SortOrder
     showId?: SortOrder
     status?: SortOrder
+    rating?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
     show?: ShowOrderByWithRelationInput
   }
@@ -5522,6 +5705,9 @@ export namespace Prisma {
     userId?: StringFilter<"WatchList"> | string
     showId?: StringFilter<"WatchList"> | string
     status?: StringFilter<"WatchList"> | string
+    rating?: IntNullableFilter<"WatchList"> | number | null
+    createdAt?: DateTimeFilter<"WatchList"> | Date | string
+    updatedAt?: DateTimeFilter<"WatchList"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     show?: XOR<ShowRelationFilter, ShowWhereInput>
   }, "id" | "userId_showId">
@@ -5531,9 +5717,14 @@ export namespace Prisma {
     userId?: SortOrder
     showId?: SortOrder
     status?: SortOrder
+    rating?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
     _count?: WatchListCountOrderByAggregateInput
+    _avg?: WatchListAvgOrderByAggregateInput
     _max?: WatchListMaxOrderByAggregateInput
     _min?: WatchListMinOrderByAggregateInput
+    _sum?: WatchListSumOrderByAggregateInput
   }
 
   export type WatchListScalarWhereWithAggregatesInput = {
@@ -5544,6 +5735,9 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"WatchList"> | string
     showId?: StringWithAggregatesFilter<"WatchList"> | string
     status?: StringWithAggregatesFilter<"WatchList"> | string
+    rating?: IntNullableWithAggregatesFilter<"WatchList"> | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"WatchList"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"WatchList"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -5659,6 +5853,10 @@ export namespace Prisma {
     id?: string
     title: string
     externalId: string
+    genres?: ShowCreategenresInput | string[]
+    synopsis?: string | null
+    imageUrl?: string | null
+    avgRating?: number | null
     createdAt?: Date | string
     episodes?: EpisodeCreateNestedManyWithoutShowInput
     watchList?: WatchListCreateNestedManyWithoutShowInput
@@ -5668,6 +5866,10 @@ export namespace Prisma {
     id?: string
     title: string
     externalId: string
+    genres?: ShowCreategenresInput | string[]
+    synopsis?: string | null
+    imageUrl?: string | null
+    avgRating?: number | null
     createdAt?: Date | string
     episodes?: EpisodeUncheckedCreateNestedManyWithoutShowInput
     watchList?: WatchListUncheckedCreateNestedManyWithoutShowInput
@@ -5677,6 +5879,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     externalId?: StringFieldUpdateOperationsInput | string
+    genres?: ShowUpdategenresInput | string[]
+    synopsis?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    avgRating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     episodes?: EpisodeUpdateManyWithoutShowNestedInput
     watchList?: WatchListUpdateManyWithoutShowNestedInput
@@ -5686,6 +5892,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     externalId?: StringFieldUpdateOperationsInput | string
+    genres?: ShowUpdategenresInput | string[]
+    synopsis?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    avgRating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     episodes?: EpisodeUncheckedUpdateManyWithoutShowNestedInput
     watchList?: WatchListUncheckedUpdateManyWithoutShowNestedInput
@@ -5695,6 +5905,10 @@ export namespace Prisma {
     id?: string
     title: string
     externalId: string
+    genres?: ShowCreategenresInput | string[]
+    synopsis?: string | null
+    imageUrl?: string | null
+    avgRating?: number | null
     createdAt?: Date | string
   }
 
@@ -5702,6 +5916,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     externalId?: StringFieldUpdateOperationsInput | string
+    genres?: ShowUpdategenresInput | string[]
+    synopsis?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    avgRating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5709,6 +5927,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     externalId?: StringFieldUpdateOperationsInput | string
+    genres?: ShowUpdategenresInput | string[]
+    synopsis?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    avgRating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5795,6 +6017,9 @@ export namespace Prisma {
   export type WatchListCreateInput = {
     id?: string
     status: string
+    rating?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     user: UserCreateNestedOneWithoutWatchListInput
     show: ShowCreateNestedOneWithoutWatchListInput
   }
@@ -5804,11 +6029,17 @@ export namespace Prisma {
     userId: string
     showId: string
     status: string
+    rating?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type WatchListUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWatchListNestedInput
     show?: ShowUpdateOneRequiredWithoutWatchListNestedInput
   }
@@ -5818,6 +6049,9 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     showId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type WatchListCreateManyInput = {
@@ -5825,11 +6059,17 @@ export namespace Prisma {
     userId: string
     showId: string
     status: string
+    rating?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type WatchListUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type WatchListUncheckedUpdateManyInput = {
@@ -5837,6 +6077,9 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     showId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -6028,6 +6271,25 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type StringNullableListFilter<$PrismaModel = never> = {
+    equals?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    has?: string | StringFieldRefInput<$PrismaModel> | null
+    hasEvery?: string[] | ListStringFieldRefInput<$PrismaModel>
+    hasSome?: string[] | ListStringFieldRefInput<$PrismaModel>
+    isEmpty?: boolean
+  }
+
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type EpisodeListRelationFilter = {
     every?: EpisodeWhereInput
     some?: EpisodeWhereInput
@@ -6042,13 +6304,24 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     externalId?: SortOrder
+    genres?: SortOrder
+    synopsis?: SortOrder
+    imageUrl?: SortOrder
+    avgRating?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type ShowAvgOrderByAggregateInput = {
+    avgRating?: SortOrder
   }
 
   export type ShowMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     externalId?: SortOrder
+    synopsis?: SortOrder
+    imageUrl?: SortOrder
+    avgRating?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -6056,7 +6329,30 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     externalId?: SortOrder
+    synopsis?: SortOrder
+    imageUrl?: SortOrder
+    avgRating?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type ShowSumOrderByAggregateInput = {
+    avgRating?: SortOrder
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -6142,6 +6438,17 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type UserRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -6157,6 +6464,13 @@ export namespace Prisma {
     userId?: SortOrder
     showId?: SortOrder
     status?: SortOrder
+    rating?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WatchListAvgOrderByAggregateInput = {
+    rating?: SortOrder
   }
 
   export type WatchListMaxOrderByAggregateInput = {
@@ -6164,6 +6478,9 @@ export namespace Prisma {
     userId?: SortOrder
     showId?: SortOrder
     status?: SortOrder
+    rating?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type WatchListMinOrderByAggregateInput = {
@@ -6171,6 +6488,29 @@ export namespace Prisma {
     userId?: SortOrder
     showId?: SortOrder
     status?: SortOrder
+    rating?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WatchListSumOrderByAggregateInput = {
+    rating?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type WatchListCreateNestedManyWithoutUserInput = {
@@ -6235,6 +6575,10 @@ export namespace Prisma {
     deleteMany?: WatchListScalarWhereInput | WatchListScalarWhereInput[]
   }
 
+  export type ShowCreategenresInput = {
+    set: string[]
+  }
+
   export type EpisodeCreateNestedManyWithoutShowInput = {
     create?: XOR<EpisodeCreateWithoutShowInput, EpisodeUncheckedCreateWithoutShowInput> | EpisodeCreateWithoutShowInput[] | EpisodeUncheckedCreateWithoutShowInput[]
     connectOrCreate?: EpisodeCreateOrConnectWithoutShowInput | EpisodeCreateOrConnectWithoutShowInput[]
@@ -6261,6 +6605,19 @@ export namespace Prisma {
     connectOrCreate?: WatchListCreateOrConnectWithoutShowInput | WatchListCreateOrConnectWithoutShowInput[]
     createMany?: WatchListCreateManyShowInputEnvelope
     connect?: WatchListWhereUniqueInput | WatchListWhereUniqueInput[]
+  }
+
+  export type ShowUpdategenresInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type EpisodeUpdateManyWithoutShowNestedInput = {
@@ -6351,6 +6708,14 @@ export namespace Prisma {
     create?: XOR<ShowCreateWithoutWatchListInput, ShowUncheckedCreateWithoutWatchListInput>
     connectOrCreate?: ShowCreateOrConnectWithoutWatchListInput
     connect?: ShowWhereUniqueInput
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type UserUpdateOneRequiredWithoutWatchListNestedInput = {
@@ -6516,6 +6881,33 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -6543,9 +6935,28 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
   export type WatchListCreateWithoutUserInput = {
     id?: string
     status: string
+    rating?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     show: ShowCreateNestedOneWithoutWatchListInput
   }
 
@@ -6553,6 +6964,9 @@ export namespace Prisma {
     id?: string
     showId: string
     status: string
+    rating?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type WatchListCreateOrConnectWithoutUserInput = {
@@ -6589,6 +7003,9 @@ export namespace Prisma {
     userId?: StringFilter<"WatchList"> | string
     showId?: StringFilter<"WatchList"> | string
     status?: StringFilter<"WatchList"> | string
+    rating?: IntNullableFilter<"WatchList"> | number | null
+    createdAt?: DateTimeFilter<"WatchList"> | Date | string
+    updatedAt?: DateTimeFilter<"WatchList"> | Date | string
   }
 
   export type EpisodeCreateWithoutShowInput = {
@@ -6625,6 +7042,9 @@ export namespace Prisma {
   export type WatchListCreateWithoutShowInput = {
     id?: string
     status: string
+    rating?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
     user: UserCreateNestedOneWithoutWatchListInput
   }
 
@@ -6632,6 +7052,9 @@ export namespace Prisma {
     id?: string
     userId: string
     status: string
+    rating?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type WatchListCreateOrConnectWithoutShowInput = {
@@ -6695,6 +7118,10 @@ export namespace Prisma {
     id?: string
     title: string
     externalId: string
+    genres?: ShowCreategenresInput | string[]
+    synopsis?: string | null
+    imageUrl?: string | null
+    avgRating?: number | null
     createdAt?: Date | string
     watchList?: WatchListCreateNestedManyWithoutShowInput
   }
@@ -6703,6 +7130,10 @@ export namespace Prisma {
     id?: string
     title: string
     externalId: string
+    genres?: ShowCreategenresInput | string[]
+    synopsis?: string | null
+    imageUrl?: string | null
+    avgRating?: number | null
     createdAt?: Date | string
     watchList?: WatchListUncheckedCreateNestedManyWithoutShowInput
   }
@@ -6727,6 +7158,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     externalId?: StringFieldUpdateOperationsInput | string
+    genres?: ShowUpdategenresInput | string[]
+    synopsis?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    avgRating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     watchList?: WatchListUpdateManyWithoutShowNestedInput
   }
@@ -6735,6 +7170,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     externalId?: StringFieldUpdateOperationsInput | string
+    genres?: ShowUpdategenresInput | string[]
+    synopsis?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    avgRating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     watchList?: WatchListUncheckedUpdateManyWithoutShowNestedInput
   }
@@ -6778,6 +7217,10 @@ export namespace Prisma {
     id?: string
     title: string
     externalId: string
+    genres?: ShowCreategenresInput | string[]
+    synopsis?: string | null
+    imageUrl?: string | null
+    avgRating?: number | null
     createdAt?: Date | string
     episodes?: EpisodeCreateNestedManyWithoutShowInput
   }
@@ -6786,6 +7229,10 @@ export namespace Prisma {
     id?: string
     title: string
     externalId: string
+    genres?: ShowCreategenresInput | string[]
+    synopsis?: string | null
+    imageUrl?: string | null
+    avgRating?: number | null
     createdAt?: Date | string
     episodes?: EpisodeUncheckedCreateNestedManyWithoutShowInput
   }
@@ -6851,6 +7298,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     externalId?: StringFieldUpdateOperationsInput | string
+    genres?: ShowUpdategenresInput | string[]
+    synopsis?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    avgRating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     episodes?: EpisodeUpdateManyWithoutShowNestedInput
   }
@@ -6859,6 +7310,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     externalId?: StringFieldUpdateOperationsInput | string
+    genres?: ShowUpdategenresInput | string[]
+    synopsis?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    avgRating?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     episodes?: EpisodeUncheckedUpdateManyWithoutShowNestedInput
   }
@@ -6867,11 +7322,17 @@ export namespace Prisma {
     id?: string
     showId: string
     status: string
+    rating?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type WatchListUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     show?: ShowUpdateOneRequiredWithoutWatchListNestedInput
   }
 
@@ -6879,12 +7340,18 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     showId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type WatchListUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     showId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EpisodeCreateManyShowInput = {
@@ -6902,6 +7369,9 @@ export namespace Prisma {
     id?: string
     userId: string
     status: string
+    rating?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type EpisodeUpdateWithoutShowInput = {
@@ -6939,6 +7409,9 @@ export namespace Prisma {
   export type WatchListUpdateWithoutShowInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutWatchListNestedInput
   }
 
@@ -6946,12 +7419,18 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type WatchListUncheckedUpdateManyWithoutShowInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
+    rating?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
